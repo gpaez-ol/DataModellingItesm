@@ -17,13 +17,14 @@ interval_limits = [double(0.0)]
 for i in range(1, classes + 1):
     interval_limits.append(interval_limits[i-1] + width)
 
+def find_index(x):
+    for i in range(0, classes):
+        if x < interval_limits[i]:
+            return i - 1
+
 observed_frequencies = [0] * classes
 for i in range(0, n):
-    freqIndex = 0
-    for j in range(0, classes):
-        if file_data[i] < interval_limits[j]:
-            break
-        freqIndex = j
+    freqIndex = find_index(file_data[i])
     observed_frequencies[freqIndex] += 1
 
 chi_squared = double(0.0)
