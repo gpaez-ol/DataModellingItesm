@@ -1,7 +1,7 @@
 import random
 
-test_between_times = [0,1,10,1,10,8,2,10,2,3]
-test_transaction_times = [4,1,5,4,2,3,2,1,3,2]
+#test_between_times = [0,1,10,1,10,8,2,10,2,3]
+#test_transaction_times = [4,1,5,4,2,3,2,1,3,2]
 
 def get_time_string(n):
     hours = n // 60
@@ -93,5 +93,13 @@ def main():
     result_str += "\nAverage service time: {}".format(total_transaction_time / customers_n)
 
     print(result_str)
+
+    f1 = open("output_table.txt", "w")
+    f1.write(table_str)
+    f1.close()
+
+    f2 = open("output_results.txt", "w")
+    f2.write(result_str)
+    f2.close()
 
 main()
