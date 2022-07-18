@@ -1,5 +1,8 @@
 import random
 
+test_between_times = [0,1,10,1,10,8,2,10,2,3]
+test_transaction_times = [4,1,5,4,2,3,2,1,3,2]
+
 def get_time_string(n):
     hours = n // 60
     mins = n % 60
@@ -41,6 +44,10 @@ def main():
     def generate_transaction_time():
         return random.randint(1, transaction_time_max)
 
+    #between_times = test_between_times
+    #transaction_times = test_transaction_times
+    #customers_n = 10
+
     for i in range(0,customers_n):        
         between_times.append(generate_between_time())
         transaction_times.append( generate_transaction_time())
@@ -69,5 +76,22 @@ def main():
         table_str += "\n{}".format(row_str)
     
     print(table_str)
+
+    # printing results
+    total_atm_time = service_end_times[customers_n - 1] - starting_time
+    total_transaction_time = sum(transaction_times)
+    total_idle_time = sum(idling_times)
+    total_wait = 0
+    waiting_customers = 0
+    for i in range(0, customers_n):
+        if wait_times[i] > 0:
+            waiting_customers += 1
+            total_wait += wait_times[i]
+    result_str = "Average wait time: {}".format(total_wait / customers_n)
+    result_str += "\nProbability to wait in queue: {:.2f}%".format(waiting_customers / customers_n * 100)
+    result_str += "\nIdle time percentage: {:.2f}%".format(total_idle_time / total_atm_time * 100)
+    result_str += "\nAverage service time: {}".format(total_transaction_time / customers_n)
+
+    print(result_str)
 
 main()
