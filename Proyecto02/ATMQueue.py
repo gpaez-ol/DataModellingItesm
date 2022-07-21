@@ -1,8 +1,5 @@
 import random
 
-#test_between_times = [0,1,10,1,10,8,2,10,2,3]
-#test_transaction_times = [4,1,5,4,2,3,2,1,3,2]
-
 def get_time_string(n):
     hours = n // 60
     mins = n % 60
@@ -43,10 +40,6 @@ def main():
     
     def generate_transaction_time():
         return random.randint(1, transaction_time_max)
-
-    #between_times = test_between_times
-    #transaction_times = test_transaction_times
-    #customers_n = 10
 
     for i in range(0,customers_n):        
         between_times.append(generate_between_time())
