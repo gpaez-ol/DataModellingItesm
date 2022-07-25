@@ -25,7 +25,7 @@ def print_matrix(mat):
     decimals = 4
     spacing = decimals + 3
     rows = len(mat)
-    print("{:<{spacing}}".format("",spacing=spacing), end='')
+    print("{a:<{spacing}}".format(a="",spacing=spacing), end='')
     for i in range(0, rows):
         print("{i:<{spacing}}".format(i=i, spacing=spacing), end='')
     print("")
