@@ -56,6 +56,7 @@ def remove_group(mat : list[list[float]], groups : list[int], warriors : list[in
                 mat[i][j] /= row_sum
     return mat
 
+# returns index
 def choose_from_row(arr):
     output = random.choices(population=range(0, len(arr)), weights=arr, k=1)
     return output[0]
@@ -69,6 +70,11 @@ def choose_attacker(groups):
     output = random.choices(population=range(0, len(groups)), k=1)
     return output[0]
 
+def group_warriors_string(groups, warriors):
+    output = ""
+    for i in range(0, len(groups)):
+        output += "Group {group}: {population}\n".format(group=groups[i], population=warriors[i])
+    return output
 
 # print(matrix_string(markov, groups))
 # print(warriors)
@@ -99,7 +105,9 @@ def main():
     while len(groups) > 1:
         attacker_index = choose_attacker(groups)
         attacked_index = choose_from_row(markov[attacker_index])
-        print_middleware("{} attacked {}".format(groups[attacker_index], groups[attacked_index]))
+        print_middleware("Group {} attacked Group {}".format(groups[attacker_index], groups[attacked_index]))
+        print_middleware("\nRemaining warriors")
+        print_middleware(group_warriors_string(groups, warriors))
         remove_group(markov, groups, warriors, attacked_index)
         print_middleware(matrix_string(markov, groups))
 
