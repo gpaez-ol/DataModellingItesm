@@ -1,11 +1,4 @@
 import random
-import numpy as np
-
-n = int(input("N?\n"))
-
-markov = []
-warriors = []
-groups = []
 
 def generate_random_markov(n):
     output : list[list[float]] = []
@@ -64,26 +57,46 @@ def remove_group(mat : list[list[float]], groups : list[int], warriors : list[in
     return mat
 
 def choose_from_row(arr):
-    output = np.random.choice(a=range(0, len(arr)), size=1, p=arr)
+    output = random.choices(population=range(0, len(arr)), weights=arr, k=1)
     return output[0]
 
 def generate_groups(n):
     output = list(range(1,n+1))
     return output
 
+# returns index
+def choose_attacker(groups):
+    output = random.choices(population=range(0, len(groups)), k=1)
+    return output[0]
 
-markov = generate_random_markov(n)
-warriors = generate_warriors(n, 10, 100)
-groups = generate_groups(n)
 
-print(matrix_string(markov, groups))
-print(warriors)
-print(groups)
 
-remove_group(markov, groups, warriors, 2)
-print(matrix_string(markov, groups))
-print(groups)
+# print(matrix_string(markov, groups))
+# print(warriors)
+# print(groups)
 
-remove_group(markov, groups, warriors, 1)
-print(matrix_string(markov, groups))
-print(groups)
+# remove_group(markov, groups, warriors, 2)
+# print(matrix_string(markov, groups))
+# print(groups)
+
+# remove_group(markov, groups, warriors, 1)
+# print(matrix_string(markov, groups))
+# print(groups)
+
+def main():
+    n = int(input("N?\n"))
+
+    markov = generate_random_markov(n)
+    warriors = generate_warriors(n, 10, 100)
+    groups = generate_groups(n)
+
+    print(matrix_string(markov, groups))
+
+    while len(groups) > 1:
+        attacker_index = choose_attacker(groups)
+        attacked_index = choose_from_row(markov[attacker_index])
+        print("{} attacked {}".format(groups[attacker_index], groups[attacked_index]))
+        remove_group(markov, groups, warriors, attacked_index)
+        print(matrix_string(markov, groups))
+
+main()
