@@ -80,7 +80,7 @@ def main():
     n = int(input("N?\n"))
 
     markov = generate_random_markov(n)
-    warriors = generate_random_warriors(n, 1, 10) # set amount of warriors here
+    warriors = generate_random_warriors(n, 1, 10) # set the amount of warriors here
     groups = generate_groups(n)
 
     output_file = open("output.txt", "w")
