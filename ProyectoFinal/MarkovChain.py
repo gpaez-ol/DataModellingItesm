@@ -30,7 +30,7 @@ def matrix_string(mat, groups):
         output += '\n'
     return output
 
-def generate_warriors(n, min, max):
+def generate_random_warriors(n, min, max):
     output = []
     for _ in range(0, n):
         output.append(random.randint(min, max))
@@ -80,7 +80,7 @@ def main():
     n = int(input("N?\n"))
 
     markov = generate_random_markov(n)
-    warriors = generate_warriors(n, 1, 10)
+    warriors = generate_random_warriors(n, 1, 10) # set amount of warriors here
     groups = generate_groups(n)
 
     output_file = open("output.txt", "w")
