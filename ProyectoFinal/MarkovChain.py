@@ -76,40 +76,47 @@ def group_warriors_string(groups, warriors):
         output += "Group {group}: {population}\n".format(group=groups[i], population=warriors[i])
     return output
 
-# print(matrix_string(markov, groups))
-# print(warriors)
-# print(groups)
-
-# remove_group(markov, groups, warriors, 2)
-# print(matrix_string(markov, groups))
-# print(groups)
-
-# remove_group(markov, groups, warriors, 1)
-# print(matrix_string(markov, groups))
-# print(groups)
-
 def main():
     n = int(input("N?\n"))
 
     markov = generate_random_markov(n)
-    warriors = generate_warriors(n, 10, 100)
+    warriors = generate_warriors(n, 1, 10)
     groups = generate_groups(n)
+
+    output_file = open("output.txt", "w")
+    output_file.write("")
+    output_file.close()
 
     output_file = open("output.txt", "a")
     def print_middleware(s, end='\n'):
         output_file.write("{s}{end}".format(s=s, end=end))
         print(s, end=end)
 
+    print_middleware("Starting matrix:")
     print_middleware(matrix_string(markov, groups))
+
+    print_middleware("Starting warriors")
+    print_middleware(group_warriors_string(groups, warriors))
 
     while len(groups) > 1:
         attacker_index = choose_attacker(groups)
         attacked_index = choose_from_row(markov[attacker_index])
-        print_middleware("Group {} attacked Group {}".format(groups[attacker_index], groups[attacked_index]))
+        print_middleware("Group {} attacked Group {}!".format(groups[attacker_index], groups[attacked_index]))
+
+        warriors[attacked_index] -= 1
         print_middleware("\nRemaining warriors")
         print_middleware(group_warriors_string(groups, warriors))
-        remove_group(markov, groups, warriors, attacked_index)
-        print_middleware(matrix_string(markov, groups))
+        if warriors[attacked_index] <= 0:
+            n -= 1
+            print_middleware("=========================================")
+            print_middleware("Group {group} eliminated!".format(group=groups[attacked_index]))
+            remove_group(markov, groups, warriors, attacked_index)
+            if n > 1:
+                print_middleware("New matrix:")
+                print_middleware(matrix_string(markov, groups), end='')
+            print_middleware("=========================================\n")
+    
+    print_middleware("Group {} is the winner!".format(groups[0]))
 
     output_file.close()
 
