@@ -70,7 +70,6 @@ def choose_attacker(groups):
     return output[0]
 
 
-
 # print(matrix_string(markov, groups))
 # print(warriors)
 # print(groups)
@@ -90,13 +89,20 @@ def main():
     warriors = generate_warriors(n, 10, 100)
     groups = generate_groups(n)
 
-    print(matrix_string(markov, groups))
+    output_file = open("output.txt", "a")
+    def print_middleware(s, end='\n'):
+        output_file.write("{s}{end}".format(s=s, end=end))
+        print(s, end=end)
+
+    print_middleware(matrix_string(markov, groups))
 
     while len(groups) > 1:
         attacker_index = choose_attacker(groups)
         attacked_index = choose_from_row(markov[attacker_index])
-        print("{} attacked {}".format(groups[attacker_index], groups[attacked_index]))
+        print_middleware("{} attacked {}".format(groups[attacker_index], groups[attacked_index]))
         remove_group(markov, groups, warriors, attacked_index)
-        print(matrix_string(markov, groups))
+        print_middleware(matrix_string(markov, groups))
+
+    output_file.close()
 
 main()
