@@ -98,7 +98,7 @@ def main():
     print_middleware("Starting warriors")
     print_middleware(group_warriors_string(groups, warriors))
 
-    while len(groups) > 1:
+    while n > 1:
         attacker_index = choose_attacker(groups)
         attacked_index = choose_from_row(markov[attacker_index])
         print_middleware("Group {} attacked Group {}!".format(groups[attacker_index], groups[attacked_index]))
