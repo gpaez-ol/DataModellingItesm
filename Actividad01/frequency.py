@@ -55,9 +55,9 @@ for i in range(0, N):
         index = j
     dataY[index] += 1
 
-print("{:<15}\t{}".format("Intervals","f"))
+print("{:<20}{}".format("Intervals","f"))
 for i in range(0, C):
-    print("{}\t{}".format("{:<15}".format(dataX[i]),dataY[i]))
+    print("{:<20}{}".format(dataX[i],dataY[i]))
 
 sum = 0
 for i in range(0,C):
